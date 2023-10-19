@@ -1,0 +1,5 @@
+baseURL = 'https://github.com/KatieUmbra/sandbox-blog'
+languageCode = 'en-us'
+title = "Katherine's Sandbox Blog"
+theme = 'writeonlyhugo-theme'
+sectionPagesMenu = "main"
