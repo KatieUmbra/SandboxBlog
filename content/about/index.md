@@ -1,7 +1,7 @@
 +++
 menu = "main"
 title = "About"
-summary = ""
+summary = "About Page"
 +++
 
 Hello! I'm katherine, this is a sandbox blog site to preview blog posts before the final publication in [my website]() (Soon).

@@ -3,8 +3,8 @@
   "baseUrl": ".",
   "paths": {
    "*": [
-    "..\\themes\\writeonlyhugo-theme\\_vendor\\github.com\\twbs\\bootstrap\\js\\*",
-    "..\\themes\\writeonlyhugo-theme\\assets\\*"
+    "../themes/writeonlyhugo-theme/_vendor/github.com/twbs/bootstrap/js/*",
+    "../themes/writeonlyhugo-theme/assets/*"
    ]
   }
  }

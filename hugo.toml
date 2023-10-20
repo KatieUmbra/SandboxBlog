@@ -3,6 +3,12 @@ languageCode = 'en-us'
 title = "Katherine's Sandbox Blog"
 theme = 'writeonlyhugo-theme'
 sectionPagesMenu = "main"
+tableOfContents = true
+
+[markup]
+	[markup.tableOfContents]
+		startLevel = 2
+		endLevel = 3
 
 [taxonomies]
 tags = "tags"
