@@ -1,4 +1,6 @@
 +++
+aliases = ["posts", "articles", "blog", "showcase"]
 title = "Posts"
-summary = ""
+author = "Katherine C."
+tags = ["index"]
 +++
