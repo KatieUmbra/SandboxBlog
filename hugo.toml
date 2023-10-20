@@ -3,3 +3,6 @@ languageCode = 'en-us'
 title = "Katherine's Sandbox Blog"
 theme = 'writeonlyhugo-theme'
 sectionPagesMenu = "main"
+
+[taxonomies]
+tags = "tags"
