@@ -5,6 +5,8 @@ draft = false
 summary = "A simple guide to help you kickstart your opengl development journey"
 author = "Katherine Chesterfield"
 +++
+## WARNING
+This blog entry is unfinished
 ## Contents
 
 {{% toc %}}
