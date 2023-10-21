@@ -5,8 +5,6 @@ draft = false
 summary = "A simple guide to help you kickstart your opengl development journey"
 author = "Katherine Chesterfield"
 +++
-## WARNING
-This blog entry is unfinished
 ## Contents
 
 {{% toc %}}
@@ -221,7 +219,7 @@ target_include_directories(ogl PUBLIC ${CMAKE_SOURCE_DIR}/libs/include ${CMAKE_S
 # Link the libraries
 target_link_libraries(ogl PRIVATE glad glfw)
 ```
-Remember that we're adding our source files manually. So remember to add them to you `CMakeLists.txt` `SOURCES` variable everytime you add or remove a file.
+Remember that we're adding our source files manually. So don't forget to add them to you `CMakeLists.txt` `SOURCES` variable everytime you add or remove a file.
 
 Now we should be ready to start working on OpenGL.
 ## Hello OpenGL
@@ -283,12 +281,9 @@ $ cmake --build build
 $ ./build/main
 ```
 And it should look like this.
-![showcase of the window]()
-## The OpenGL pipeline in a nutshell
-## Buffers
-## OpenGL Buffers
-### Vertex Buffers
-### Element Buffers
-### Vertex Attributes
-### Vertex Arrays
-## Shaders
+
+![showcase of the window](https://raw.githubusercontent.com/KatieUmbra/sandbox-blog/main/assets/opengl%20window.png)
+
+Congrats on finishing the first part of this guide. However much more needs to be done before we see a triangle (or triangles) in the screen.
+
+That's it for now, part 2 is on the way.
