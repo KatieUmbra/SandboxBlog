@@ -171,8 +171,119 @@ find_library(glfw NAMES glfw glfw3 libglfw libglfw3)
 we'll link with our main target later
 
 ### GLAD
-### Putting it together
-### Hello OpenGL
+GLAD is lovely to setup, it provides a simple CLI interface written in python to generate a custom loader for our needs. 
+Installation is pretty straight forward
+For arch linux users:
+```sh
+yay -S python-glad
+```
+And for everyone else:
+```sh
+sudo pip3 install glad
+```
+
+now we'll generate our files, we'll keep it simple since it provides some *complicated* options that to be honest, I'm unsure how to use.
+
+Create a new folder inside `libs/` called `glad`, there we'll run the command.
+```sh
+glad --profile core --out-path . --generator c
+```
+
+this command generates 2 folders, `include` and `src`, to use this in our project we'll need to create a new `CMakeLists.txt` that declares our `glad` target, it's pretty straight forward so don't stress.
+
+```cmake
+cmake_minimum_required(VERSION 3.16...3.27)
+project(glad LANGUAGES C)
+
+add_library(glad STATIC src/glad.c)
+target_include_directories(glad PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+```
+
+Lastly we add the library to our main `CMakeLists.txt`.
+```cmake
+...
+# We'll come back here to find our libraries
+add_subdirectory(libs/glfw)
+add_subdirectory(libs/glad)
+find_library(glfw NAMES glfw glfw3 libglfw libglfw3)
+find_library(glad NAMES glad libglad)
+...
+```
+### Wrapping up
+To finish up, all we have to do is include the directories in our main executable and link the libraries
+```cmake
+...
+# This will be our application
+add_executable(ogl ${SOURCES})
+target_compile_features(ogl PRIVATE cxx_std_20)
+# Include the new folders
+target_include_directories(ogl PUBLIC ${CMAKE_SOURCE_DIR}/libs/include ${CMAKE_SOURCE_DIR}/libs/glad/include ${CMAKE_SOURCE_DIR}/libs/glfw/include)
+# Link the libraries
+target_link_libraries(ogl PRIVATE glad glfw)
+```
+Remember that we're adding our source files manually. So remember to add them to you `CMakeLists.txt` `SOURCES` variable everytime you add or remove a file.
+
+Now we should be ready to start working on OpenGL.
+## Hello OpenGL
+Here I'll borrow some code from the great [LearnOpenGL](https://learnopengl.com) to rush through the hello world.
+```cpp
+// main.cpp
+#include <iostream>
+#include "GLFW/glfw.h"
+#include <glad/glad.h>
+
+auto main() -> int
+{
+	// First we initialize glfw with the correct version and profile hints
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// Then we create the window and verify its valid
+	auto* window = glfwCreateWindow(800, 800, "Hello OpenGL", nullptr, nullptr);
+	if (window == nullptr)
+	{
+		std::cerr << "Failed to initialize GLFW window" << '\n';
+		glfwTerminate();
+		return -1;
+	}
+	glfwMakeContextCurrent(window);
+
+	if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cerr << "Failed to initialize GLAD" << '\n';
+		return -1;
+	}
+
+	// Telling opengl size of the window
+	glViewport(0, 0, 800, 800);
+
+	// Main loop, will run as long as the window is open
+	while(!glfwWindowShouldClose(window))
+	{
+		// Swapping the buffers (You'll understand this later)
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+	glfwTerminate();
+}
+```
+We could add these 2 lines of code before swapping the buffers to change the color of the window.
+```cpp
+// Setting the color to a pink shade
+glClearColor(1.0f, 0.8f, 0.8f, 1.0f);
+// Resetting the color buffer
+glClear(GL_COLOR_BUFFER_BIT);
+```
+If everything went correctly, a window should open when you build and run.
+```sh
+$ cmake --build build
+$ ./build/main
+```
+And it should look like this.
+![showcase of the window]()
 ## The OpenGL pipeline in a nutshell
 ## Buffers
 ## OpenGL Buffers
